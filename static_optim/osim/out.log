@@ -1,0 +1,177 @@
+Preparing to run InverseKinematicsTool.
+Loaded model colombe_real_data from file colombe_real_scaled.osim
+Couldn't find file 'ribs.vtp'.
+Couldn't find file 'r_clavicle.vtp'.
+Couldn't find file 'r_scapula.vtp'.
+Couldn't find file 'r_humerus.vtp'.
+Couldn't find file 'r_ulna.vtp'.
+Couldn't find file 'r_radius.vtp'.
+Couldn't find file 'pisiform.vtp'.
+Couldn't find file 'scaphoid.vtp'.
+Couldn't find file 'triquetrum.vtp'.
+Couldn't find file 'hamate.vtp'.
+Couldn't find file 'capitate.vtp'.
+Couldn't find file 'trapezoid.vtp'.
+Couldn't find file 'trapezium.vtp'.
+Couldn't find file '1mc.vtp'.
+Couldn't find file '2mc.vtp'.
+Couldn't find file '3mc.vtp'.
+Couldn't find file '4mc.vtp'.
+Couldn't find file '5mc.vtp'.
+Couldn't find file 'thumbprox.vtp'.
+Couldn't find file 'thumbdist.vtp'.
+Couldn't find file '2proxph.vtp'.
+Couldn't find file '2midph.vtp'.
+Couldn't find file '2distph.vtp'.
+Couldn't find file '3proxph.vtp'.
+Couldn't find file '3midph.vtp'.
+Couldn't find file '3distph.vtp'.
+Couldn't find file '4proxph.vtp'.
+Couldn't find file '4midph.vtp'.
+Couldn't find file '4distph.vtp'.
+Couldn't find file '5proxph.vtp'.
+Couldn't find file '5midph.vtp'.
+Couldn't find file '5distph.vtp'.
+Couldn't find file 'lunate.vtp'.
+
+               MODEL: colombe_real_data
+         coordinates: 19
+              forces: 18
+           actuators: 18
+             muscles: 18
+            analyses: 0
+              probes: 0
+              bodies: 7
+              joints: 7
+         constraints: 0
+             markers: 18
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+Running tool .
+Frame 0 (t=0):	total squared error = 6.05074, marker error: RMS=0.579786, max=1.1315 (XIPH)
+Frame 1 (t=0.00195122):	total squared error = 6.0529, marker error: RMS=0.57989, max=1.13164 (XIPH)
+Frame 2 (t=0.00390244):	total squared error = 6.05482, marker error: RMS=0.579982, max=1.1317 (XIPH)
+Frame 3 (t=0.00585366):	total squared error = 6.05649, marker error: RMS=0.580062, max=1.1318 (XIPH)
+Frame 4 (t=0.00780488):	total squared error = 6.05848, marker error: RMS=0.580157, max=1.1319 (XIPH)
+Frame 5 (t=0.0097561):	total squared error = 6.06085, marker error: RMS=0.580271, max=1.132 (XIPH)
+Frame 6 (t=0.0117073):	total squared error = 6.06291, marker error: RMS=0.580369, max=1.13211 (XIPH)
+Frame 7 (t=0.0136585):	total squared error = 6.06431, marker error: RMS=0.580436, max=1.13224 (XIPH)
+Frame 8 (t=0.0156098):	total squared error = 6.06568, marker error: RMS=0.580502, max=1.13229 (XIPH)
+Frame 9 (t=0.017561):	total squared error = 6.06749, marker error: RMS=0.580588, max=1.13243 (XIPH)
+Frame 10 (t=0.0195122):	total squared error = 6.0689, marker error: RMS=0.580656, max=1.13252 (XIPH)
+Frame 11 (t=0.0214634):	total squared error = 6.07056, marker error: RMS=0.580735, max=1.13261 (XIPH)
+Frame 12 (t=0.0234146):	total squared error = 6.07163, marker error: RMS=0.580786, max=1.13267 (XIPH)
+Frame 13 (t=0.0253659):	total squared error = 6.07282, marker error: RMS=0.580843, max=1.13269 (XIPH)
+Frame 14 (t=0.0273171):	total squared error = 6.07349, marker error: RMS=0.580875, max=1.13272 (XIPH)
+Frame 15 (t=0.0292683):	total squared error = 6.074, marker error: RMS=0.5809, max=1.1328 (XIPH)
+Frame 16 (t=0.0312195):	total squared error = 6.0744, marker error: RMS=0.580919, max=1.13285 (XIPH)
+Frame 17 (t=0.0331707):	total squared error = 6.07504, marker error: RMS=0.580949, max=1.13289 (XIPH)
+Frame 18 (t=0.035122):	total squared error = 6.07506, marker error: RMS=0.58095, max=1.13294 (XIPH)
+Frame 19 (t=0.0370732):	total squared error = 6.07501, marker error: RMS=0.580948, max=1.13294 (XIPH)
+Frame 20 (t=0.0390244):	total squared error = 6.07539, marker error: RMS=0.580966, max=1.13296 (XIPH)
+Frame 21 (t=0.0409756):	total squared error = 6.07564, marker error: RMS=0.580978, max=1.13302 (XIPH)
+Frame 22 (t=0.0429268):	total squared error = 6.07543, marker error: RMS=0.580968, max=1.13308 (XIPH)
+Frame 23 (t=0.044878):	total squared error = 6.07534, marker error: RMS=0.580964, max=1.13313 (XIPH)
+Frame 24 (t=0.0468293):	total squared error = 6.07545, marker error: RMS=0.580969, max=1.1332 (XIPH)
+Frame 25 (t=0.0487805):	total squared error = 6.07539, marker error: RMS=0.580966, max=1.13324 (XIPH)
+Frame 26 (t=0.0507317):	total squared error = 6.07494, marker error: RMS=0.580945, max=1.13327 (XIPH)
+Frame 27 (t=0.0526829):	total squared error = 6.07478, marker error: RMS=0.580937, max=1.13325 (XIPH)
+Frame 28 (t=0.0546341):	total squared error = 6.07459, marker error: RMS=0.580928, max=1.13328 (XIPH)
+Frame 29 (t=0.0565854):	total squared error = 6.07499, marker error: RMS=0.580947, max=1.13334 (XIPH)
+Frame 30 (t=0.0585366):	total squared error = 6.07515, marker error: RMS=0.580955, max=1.13341 (XIPH)
+Frame 31 (t=0.0604878):	total squared error = 6.07435, marker error: RMS=0.580916, max=1.13345 (XIPH)
+Frame 32 (t=0.062439):	total squared error = 6.07471, marker error: RMS=0.580933, max=1.13356 (XIPH)
+Frame 33 (t=0.0643902):	total squared error = 6.0749, marker error: RMS=0.580943, max=1.13358 (XIPH)
+Frame 34 (t=0.0663415):	total squared error = 6.0749, marker error: RMS=0.580943, max=1.13369 (XIPH)
+Frame 35 (t=0.0682927):	total squared error = 6.07513, marker error: RMS=0.580954, max=1.13376 (XIPH)
+Frame 36 (t=0.0702439):	total squared error = 6.0727, marker error: RMS=0.580837, max=1.13385 (XIPH)
+Frame 37 (t=0.0721951):	total squared error = 6.07239, marker error: RMS=0.580823, max=1.13394 (XIPH)
+Frame 38 (t=0.0741463):	total squared error = 6.07281, marker error: RMS=0.580843, max=1.13403 (XIPH)
+Frame 39 (t=0.0760976):	total squared error = 6.07025, marker error: RMS=0.580721, max=1.1341 (XIPH)
+Frame 40 (t=0.0780488):	total squared error = 6.06975, marker error: RMS=0.580696, max=1.13423 (XIPH)
+Frame 41 (t=0.08):	total squared error = 6.07015, marker error: RMS=0.580715, max=1.13438 (XIPH)
+Frame 42 (t=0.0819512):	total squared error = 6.07113, marker error: RMS=0.580762, max=1.1346 (XIPH)
+Frame 43 (t=0.0839024):	total squared error = 6.0683, marker error: RMS=0.580627, max=1.13472 (XIPH)
+Frame 44 (t=0.0858537):	total squared error = 6.06929, marker error: RMS=0.580674, max=1.13496 (XIPH)
+Frame 45 (t=0.0878049):	total squared error = 6.07027, marker error: RMS=0.580721, max=1.13515 (XIPH)
+Frame 46 (t=0.0897561):	total squared error = 6.07106, marker error: RMS=0.580759, max=1.1354 (XIPH)
+Frame 47 (t=0.0917073):	total squared error = 6.07061, marker error: RMS=0.580738, max=1.13562 (XIPH)
+Frame 48 (t=0.0936585):	total squared error = 6.07148, marker error: RMS=0.580779, max=1.13586 (XIPH)
+Frame 49 (t=0.0956098):	total squared error = 6.07238, marker error: RMS=0.580822, max=1.13604 (XIPH)
+Frame 50 (t=0.097561):	total squared error = 6.07341, marker error: RMS=0.580872, max=1.13628 (XIPH)
+Frame 51 (t=0.0995122):	total squared error = 6.07475, marker error: RMS=0.580935, max=1.13652 (XIPH)
+Frame 52 (t=0.101463):	total squared error = 6.07551, marker error: RMS=0.580972, max=1.13671 (XIPH)
+Frame 53 (t=0.103415):	total squared error = 6.0763, marker error: RMS=0.581009, max=1.13684 (XIPH)
+Frame 54 (t=0.105366):	total squared error = 6.07687, marker error: RMS=0.581037, max=1.13697 (XIPH)
+Frame 55 (t=0.107317):	total squared error = 6.07789, marker error: RMS=0.581086, max=1.13712 (XIPH)
+Frame 56 (t=0.109268):	total squared error = 6.0827, marker error: RMS=0.581316, max=1.13719 (XIPH)
+Frame 57 (t=0.11122):	total squared error = 6.0842, marker error: RMS=0.581387, max=1.1373 (XIPH)
+Frame 58 (t=0.113171):	total squared error = 6.08795, marker error: RMS=0.581566, max=1.13734 (XIPH)
+Frame 59 (t=0.115122):	total squared error = 6.08945, marker error: RMS=0.581638, max=1.13739 (XIPH)
+Frame 60 (t=0.117073):	total squared error = 6.09236, marker error: RMS=0.581777, max=1.13744 (XIPH)
+Frame 61 (t=0.119024):	total squared error = 6.09913, marker error: RMS=0.5821, max=1.13747 (XIPH)
+Frame 62 (t=0.120976):	total squared error = 6.10211, marker error: RMS=0.582242, max=1.13749 (XIPH)
+Frame 63 (t=0.122927):	total squared error = 6.10633, marker error: RMS=0.582444, max=1.1375 (XIPH)
+Frame 64 (t=0.124878):	total squared error = 6.11348, marker error: RMS=0.582784, max=1.13753 (XIPH)
+Frame 65 (t=0.126829):	total squared error = 6.11708, marker error: RMS=0.582956, max=1.13745 (XIPH)
+Frame 66 (t=0.12878):	total squared error = 6.12191, marker error: RMS=0.583186, max=1.13747 (XIPH)
+Frame 67 (t=0.130732):	total squared error = 6.12919, marker error: RMS=0.583533, max=1.13739 (XIPH)
+Frame 68 (t=0.132683):	total squared error = 6.13445, marker error: RMS=0.583783, max=1.13732 (XIPH)
+Frame 69 (t=0.134634):	total squared error = 6.13959, marker error: RMS=0.584028, max=1.13726 (XIPH)
+Frame 70 (t=0.136585):	total squared error = 6.1451, marker error: RMS=0.58429, max=1.13715 (XIPH)
+Frame 71 (t=0.138537):	total squared error = 6.15096, marker error: RMS=0.584568, max=1.13715 (XIPH)
+Frame 72 (t=0.140488):	total squared error = 6.16168, marker error: RMS=0.585077, max=1.13708 (XIPH)
+Frame 73 (t=0.142439):	total squared error = 6.16795, marker error: RMS=0.585375, max=1.13704 (XIPH)
+Frame 74 (t=0.14439):	total squared error = 6.17594, marker error: RMS=0.585754, max=1.13704 (XIPH)
+Frame 75 (t=0.146341):	total squared error = 6.18439, marker error: RMS=0.586155, max=1.13702 (XIPH)
+Frame 76 (t=0.148293):	total squared error = 6.19491, marker error: RMS=0.586653, max=1.13711 (XIPH)
+Frame 77 (t=0.150244):	total squared error = 6.20624, marker error: RMS=0.587189, max=1.1371 (XIPH)
+Frame 78 (t=0.152195):	total squared error = 6.21928, marker error: RMS=0.587806, max=1.13715 (XIPH)
+Frame 79 (t=0.154146):	total squared error = 6.23293, marker error: RMS=0.588451, max=1.13716 (XIPH)
+Frame 80 (t=0.156098):	total squared error = 6.24939, marker error: RMS=0.589227, max=1.13708 (XIPH)
+Frame 81 (t=0.158049):	total squared error = 6.26702, marker error: RMS=0.590057, max=1.13704 (XIPH)
+Frame 82 (t=0.16):	total squared error = 6.28966, marker error: RMS=0.591122, max=1.13691 (XIPH)
+Frame 83 (t=0.161951):	total squared error = 6.30965, marker error: RMS=0.592061, max=1.13685 (XIPH)
+Frame 84 (t=0.163902):	total squared error = 6.34, marker error: RMS=0.593483, max=1.13669 (XIPH)
+Frame 85 (t=0.165854):	total squared error = 6.36754, marker error: RMS=0.594771, max=1.13659 (XIPH)
+Frame 86 (t=0.167805):	total squared error = 6.40046, marker error: RMS=0.596306, max=1.13658 (XIPH)
+Frame 87 (t=0.169756):	total squared error = 6.43975, marker error: RMS=0.598134, max=1.13655 (XIPH)
+Frame 88 (t=0.171707):	total squared error = 6.48474, marker error: RMS=0.600219, max=1.13661 (XIPH)
+Frame 89 (t=0.173659):	total squared error = 6.52609, marker error: RMS=0.60213, max=1.13658 (XIPH)
+Frame 90 (t=0.17561):	total squared error = 6.56988, marker error: RMS=0.604147, max=1.1367 (XIPH)
+Frame 91 (t=0.177561):	total squared error = 6.61985, marker error: RMS=0.60644, max=1.13676 (XIPH)
+Frame 92 (t=0.179512):	total squared error = 6.67062, marker error: RMS=0.608761, max=1.13671 (XIPH)
+Frame 93 (t=0.181463):	total squared error = 6.73068, marker error: RMS=0.611496, max=1.13675 (XIPH)
+Frame 94 (t=0.183415):	total squared error = 6.77959, marker error: RMS=0.613713, max=1.13674 (XIPH)
+Frame 95 (t=0.185366):	total squared error = 6.83756, marker error: RMS=0.616332, max=1.13683 (XIPH)
+Frame 96 (t=0.187317):	total squared error = 6.8977, marker error: RMS=0.619036, max=1.13702 (XIPH)
+Frame 97 (t=0.189268):	total squared error = 6.96587, marker error: RMS=0.622087, max=1.13706 (XIPH)
+Frame 98 (t=0.19122):	total squared error = 7.02227, marker error: RMS=0.624601, max=1.13707 (XIPH)
+Frame 99 (t=0.193171):	total squared error = 7.09272, marker error: RMS=0.627726, max=1.13721 (XIPH)
+Frame 100 (t=0.195122):	total squared error = 7.13559, marker error: RMS=0.62962, max=1.13724 (XIPH)
+Frame 101 (t=0.197073):	total squared error = 7.18566, marker error: RMS=0.631825, max=1.13739 (XIPH)
+Frame 102 (t=0.199024):	total squared error = 7.25509, marker error: RMS=0.634871, max=1.13749 (XIPH)
+Frame 103 (t=0.200976):	total squared error = 7.32508, marker error: RMS=0.637926, max=1.13756 (XIPH)
+Frame 104 (t=0.202927):	total squared error = 7.39599, marker error: RMS=0.641006, max=1.13764 (XIPH)
+Frame 105 (t=0.204878):	total squared error = 7.4676, marker error: RMS=0.644102, max=1.13768 (XIPH)
+Frame 106 (t=0.206829):	total squared error = 7.53843, marker error: RMS=0.647149, max=1.13781 (XIPH)
+Frame 107 (t=0.20878):	total squared error = 7.60887, marker error: RMS=0.650165, max=1.13793 (XIPH)
+Frame 108 (t=0.210732):	total squared error = 7.68037, marker error: RMS=0.653213, max=1.13807 (XIPH)
+Frame 109 (t=0.212683):	total squared error = 7.74982, marker error: RMS=0.65616, max=1.13824 (XIPH)
+Frame 110 (t=0.214634):	total squared error = 7.81823, marker error: RMS=0.65905, max=1.13845 (XIPH)
+Frame 111 (t=0.216585):	total squared error = 7.88596, marker error: RMS=0.661898, max=1.13852 (XIPH)
+Frame 112 (t=0.218537):	total squared error = 7.94891, marker error: RMS=0.664535, max=1.13865 (XIPH)
+Frame 113 (t=0.220488):	total squared error = 8.00958, marker error: RMS=0.667066, max=1.13876 (XIPH)
+Frame 114 (t=0.222439):	total squared error = 8.06753, marker error: RMS=0.669474, max=1.13888 (XIPH)
+Frame 115 (t=0.22439):	total squared error = 8.12228, marker error: RMS=0.671742, max=1.13906 (XIPH)
+Frame 116 (t=0.226341):	total squared error = 8.17523, marker error: RMS=0.673928, max=1.13919 (XIPH)
+Frame 117 (t=0.228293):	total squared error = 8.22465, marker error: RMS=0.675962, max=1.13934 (XIPH)
+Frame 118 (t=0.230244):	total squared error = 8.27059, marker error: RMS=0.677848, max=1.13953 (XIPH)
+Frame 119 (t=0.232195):	total squared error = 8.31488, marker error: RMS=0.67966, max=1.13979 (XIPH)
+Frame 120 (t=0.234146):	total squared error = 8.35301, marker error: RMS=0.681217, max=1.14004 (XIPH)
+Frame 121 (t=0.236098):	total squared error = 8.3896, marker error: RMS=0.682707, max=1.14026 (XIPH)
+Frame 122 (t=0.238049):	total squared error = 8.42193, marker error: RMS=0.684021, max=1.14056 (XIPH)
+Frame 123 (t=0.24):	total squared error = 8.45267, marker error: RMS=0.685269, max=1.14094 (XIPH)
+InverseKinematicsTool completed 124 frames in 1 second(s)
+

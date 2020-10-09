@@ -1,0 +1,63 @@
+Preparing to run ScaleTool.
+Processing subject colombe_real_data
+
+Step 1: Loading generic model
+Loaded model colombe_real_data from file model_ik.osim
+Couldn't find file 'ribs.vtp'.
+Couldn't find file 'r_clavicle.vtp'.
+Couldn't find file 'r_scapula.vtp'.
+Couldn't find file 'r_humerus.vtp'.
+Couldn't find file 'r_ulna.vtp'.
+Couldn't find file 'r_radius.vtp'.
+Couldn't find file 'pisiform.vtp'.
+Couldn't find file 'scaphoid.vtp'.
+Couldn't find file 'triquetrum.vtp'.
+Couldn't find file 'hamate.vtp'.
+Couldn't find file 'capitate.vtp'.
+Couldn't find file 'trapezoid.vtp'.
+Couldn't find file 'trapezium.vtp'.
+Couldn't find file '1mc.vtp'.
+Couldn't find file '2mc.vtp'.
+Couldn't find file '3mc.vtp'.
+Couldn't find file '4mc.vtp'.
+Couldn't find file '5mc.vtp'.
+Couldn't find file 'thumbprox.vtp'.
+Couldn't find file 'thumbdist.vtp'.
+Couldn't find file '2proxph.vtp'.
+Couldn't find file '2midph.vtp'.
+Couldn't find file '2distph.vtp'.
+Couldn't find file '3proxph.vtp'.
+Couldn't find file '3midph.vtp'.
+Couldn't find file '3distph.vtp'.
+Couldn't find file '4proxph.vtp'.
+Couldn't find file '4midph.vtp'.
+Couldn't find file '4distph.vtp'.
+Couldn't find file '5proxph.vtp'.
+Couldn't find file '5midph.vtp'.
+Couldn't find file '5distph.vtp'.
+Couldn't find file 'lunate.vtp'.
+Loading marker set from 'marker_scaling.trc'
+Updated markers in model colombe_real_data
+
+Step 2: Scaling generic model
+Loaded marker file marker_scaling.trc (18 markers, 124 frames)
+Measurement 'clav'
+	pair 0 (CLAV_SC, SCAP_CP): model = 0.109013, experimental = 0.122822
+	overall scale factor = 1.12667
+Measurement 'scapx'
+	pair 0 (CLAV_AC, SCAP_TS): model = 0.135328, experimental = 0.161095
+	overall scale factor = 1.1904
+Measurement 'hum'
+	pair 0 (SCAP_AA, EPICl): model = 0.325458, experimental = 0.322514
+	overall scale factor = 0.990954
+Measurement 'rad'
+	pair 0 (EPICm, STYLrad): model = 0.272837, experimental = 0.290855
+	overall scale factor = 1.06604
+Measurement 'ulna'
+	pair 0 (EPICl, STYLulna): model = 0.281245, experimental = 0.270312
+	overall scale factor = 0.961124
+Measurement 'thory'
+	pair 0 (STER, CLAV_AC): model = 0.172755, experimental = 0.211052
+	overall scale factor = 1.22168
+Wrote model file colombe_real_scaled.osim from model colombe_real_data
+Wrote scale file scaled_file.xml for model colombe_real_data

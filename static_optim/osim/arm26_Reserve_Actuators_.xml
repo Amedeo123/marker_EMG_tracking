@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSimDocument Version="30000">
+	<ForceSet name="arm26">
+		<defaults/>
+		<objects>
+			<PointActuator name="Tx">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>-Inf</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>Inf</max_control>
+				<!--Name of Body to which this actuator is applied.-->
+				<body>r_humerus</body>
+				<!--Location of application point; in body frame unless point_is_global=true-->
+				<point>0 0 0</point>
+				<!--Interpret point in Ground frame if true; otherwise, body frame.-->
+				<point_is_global>false</point_is_global>
+				<!--Force application direction; in body frame unless force_is_global=true.-->
+				<direction>1 0 0</direction>
+				<!--Interpret direction in Ground frame if true; otherwise, body frame.-->
+				<force_is_global>true</force_is_global>
+				<!--The maximum force produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+			</PointActuator>
+			<PointActuator name="Ty">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>-Inf</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>Inf</max_control>
+				<!--Name of Body to which this actuator is applied.-->
+				<body>r_humerus</body>
+				<!--Location of application point; in body frame unless point_is_global=true-->
+				<point>0 0 0</point>
+				<!--Interpret point in Ground frame if true; otherwise, body frame.-->
+				<point_is_global>false</point_is_global>
+				<!--Force application direction; in body frame unless force_is_global=true.-->
+				<direction>0 1 0</direction>
+				<!--Interpret direction in Ground frame if true; otherwise, body frame.-->
+				<force_is_global>true</force_is_global>
+				<!--The maximum force produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+			</PointActuator>
+			<PointActuator name="Tz">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>-Inf</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>Inf</max_control>
+				<!--Name of Body to which this actuator is applied.-->
+				<body>r_humerus</body>
+				<!--Location of application point; in body frame unless point_is_global=true-->
+				<point>0 0 0</point>
+				<!--Interpret point in Ground frame if true; otherwise, body frame.-->
+				<point_is_global>false</point_is_global>
+				<!--Force application direction; in body frame unless force_is_global=true.-->
+				<direction>0 0 1</direction>
+				<!--Interpret direction in Ground frame if true; otherwise, body frame.-->
+				<force_is_global>true</force_is_global>
+				<!--The maximum force produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+			</PointActuator>
+			<TorqueActuator name="Rx">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>-Inf</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>Inf</max_control>
+				<!--Name of Body to which the torque actuator is applied.-->
+				<bodyA>r_humerus</bodyA>
+				<!--Name of Body to which the equal and opposite torque is applied.-->
+				<bodyB>ground</bodyB>
+				<!--Interpret axis in Ground frame if true; otherwise, body A's frame.-->
+				<torque_is_global>true</torque_is_global>
+				<!--Fixed direction about which torque is applied, in Ground or body A frame depending on 'torque_is_global' property.-->
+				<axis>1 0 0</axis>
+				<!--The maximum torque produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+			</TorqueActuator>
+			<TorqueActuator name="Ry">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>-Inf</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>Inf</max_control>
+				<!--Name of Body to which the torque actuator is applied.-->
+				<bodyA>r_humerus</bodyA>
+				<!--Name of Body to which the equal and opposite torque is applied.-->
+				<bodyB>ground</bodyB>
+				<!--Interpret axis in Ground frame if true; otherwise, body A's frame.-->
+				<torque_is_global>true</torque_is_global>
+				<!--Fixed direction about which torque is applied, in Ground or body A frame depending on 'torque_is_global' property.-->
+				<axis>0 1 0</axis>
+				<!--The maximum torque produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+			</TorqueActuator>		
+			<TorqueActuator name="Rz">
+				<!--Flag indicating whether the force is disabled or not. Disabled means that the force is not active in subsequent dynamics realizations.-->
+				<isDisabled>false</isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving for control values.-->
+				<min_control>-Inf</min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>Inf</max_control>
+				<!--Name of Body to which the torque actuator is applied.-->
+				<bodyA>r_humerus</bodyA>
+				<!--Name of Body to which the equal and opposite torque is applied.-->
+				<bodyB>ground</bodyB>
+				<!--Interpret axis in Ground frame if true; otherwise, body A's frame.-->
+				<torque_is_global>true</torque_is_global>
+				<!--Fixed direction about which torque is applied, in Ground or body A frame depending on 'torque_is_global' property.-->
+				<axis>0 0 1</axis>
+				<!--The maximum torque produced by this actuator when fully activated.-->
+				<optimal_force>1</optimal_force>
+			</TorqueActuator>	
+		<groups/>
+		</objects>
+	</ForceSet>
+</OpenSimDocument>
+
