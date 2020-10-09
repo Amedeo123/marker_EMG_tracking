@@ -34,7 +34,7 @@ def my_target_function(ocp, value, target_value):
     # The target function is a penalty function.
     # `ocp` and `value` are mandatory. The rest is defined in the
     # parameter by the user
-    return np.dot(value - target_value, value - target_value)
+    return value - target_value
 
 
 def prepare_ocp(biorbd_model_path, final_time, number_shooting_points, min_g, max_g, target_g, use_SX=True):
@@ -105,7 +105,7 @@ def prepare_ocp(biorbd_model_path, final_time, number_shooting_points, min_g, ma
 
 if __name__ == "__main__":
     ocp = prepare_ocp(
-        biorbd_model_path=Path.cwd().parent/"models/pendulum.bioMod", final_time=3, number_shooting_points=100, min_g=-8, max_g=8, target_g=-7
+        biorbd_model_path="/home/amedeo/Documents/programmation/marker_emg_tracking/models/pendulum.bioMod", final_time=3, number_shooting_points=100, min_g=-8, max_g=8, target_g=-7
         , use_SX=True
     )
 
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     length = params["gravity_z"][0, 0]
     print(length)
     import bioviz
-    b = bioviz.Viz(model_path='pendulum.bioMod')
+    b = bioviz.Viz(model_path="/home/amedeo/Documents/programmation/marker_emg_tracking/models/pendulum.bioMod")
     b.load_movement(q)
     b.exec()
     

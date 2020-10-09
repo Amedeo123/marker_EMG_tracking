@@ -1,1 +1,7 @@
 mouvement_reel/results/sujet_5
+
+.idea/
+
+mouvement_reel/c_generated_code/
+
+mouvement_reel/acados_ocp.json
