@@ -4,7 +4,7 @@ import seaborn as sns ; sns.set()
 from casadi import MX, Function, vertcat, jacobian
 from matplotlib import pyplot as plt
 import csv
-from biorbd_optim import (
+from bioptim import (
     OptimalControlProgram,
     Data,
     ShowResult,

@@ -58,19 +58,18 @@ def reduce(n_frames_expected, data):
     return data_reduce, n_frames
 
 
-parent_dir_path = os.path.split(os.path.dirname(__file__))[0]
-# biorbd_model = biorbd.Model(parent_dir_path +'/models/arm_Belaise_v2_EKF_scaled.bioMod')
-# biorbd_model = biorbd.Model(parent_dir_path +'/models/arm_Belaise_real_v2.bioMod')
-biorbd_model = biorbd.Model(parent_dir_path +'/models/arm_Belaise_v3_scaled.bioMod')
-# Data
-data = "horizon" #abd_co #flex_co #"horizon_co"
 sujet = "5"
-nb_try = 6
+data = "flex_co" #abd_co #flex_co #"horizon_co"
+data_path = f'/home/amedeo/Documents/programmation/marker_emg_tracking/mouvement_reel/results/'
+model_path = '/home/amedeo/Documents/programmation/marker_emg_tracking/models/'
+model = 'arm_Belaise_real_v3_scaled.bioMod'
+biorbd_model = biorbd.Model(model_path + model)
+nb_try = 1
 dic = {}
 for i in range(nb_try):
     tries = str(i)
-    mat_contents = sio.loadmat(f"sujet_{sujet}/data_{data}_treat.mat")
-    marker_treat = mat_contents[f"marker_try_{tries}"][:, :, :]
+    mat_contents = sio.loadmat(data_path + f"sujet_{sujet}/data_{data}_treat.mat")
+    marker_treat = mat_contents[f"marker_try_{tries}"][:, 2:, :]
     emg_norm = mat_contents[f"emg_try_{tries}"]
     t_final = float(marker_treat.shape[2]/mat_contents['marker_rate'])
     t = np.linspace(0, t_final, marker_treat.shape[2])
@@ -106,17 +105,17 @@ for i in range(nb_try):
         q_new[k, :] = b(t)
         qdot_new[k, :] = c(t)
 
-    # for k in range(q_recons.shape[0]):
-    #     plt.subplot(5, 4, k+1)
-    #     plt.plot(t, q_recons[k, :])
-    #     # plt.plot(t, q_dot_recons[k, :])
-    #     # plt.plot(t, qdot_new[k, :])
-    #     plt.plot(t, q_new[k, :])
-    # plt.show()
-    # if bioviz_found:
-    #     b = bioviz.Viz(loaded_model=biorbd_model)
-    #     b.load_movement(q_new)
-    #     b.exec()
+    for k in range(q_recons.shape[0]):
+        plt.subplot(5, 4, k+1)
+        plt.plot(t, q_recons[k, :])
+        # plt.plot(t, q_dot_recons[k, :])
+        # plt.plot(t, qdot_new[k, :])
+        plt.plot(t, q_new[k, :])
+    plt.show()
+    if bioviz_found:
+        b = bioviz.Viz(loaded_model=biorbd_model)
+        b.load_movement(q_new)
+        b.exec()
 
 
     # Save initial states in .mat file
@@ -125,5 +124,5 @@ for i in range(nb_try):
     x_init = np.concatenate((q_new, qdot_new, emg_norm))
     dic[f'x_init_{tries}'] = x_init
     dic[f't_final_{tries}'] = t_final
-sio.savemat(f"./sujet_5/states_init_{data}.mat", dic)
+sio.savemat(data_path + f"sujet_5/states_init_{data}.mat", dic)
 

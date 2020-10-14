@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 # import BiorbdViz
 import os
 import csv
-from biorbd_optim import (
+from bioptim import (
     OptimalControlProgram,
     Data,
     ShowResult,
@@ -78,61 +78,99 @@ def muscles_force(states, controls, nlp):
     return biorbd_model.muscleForces(muscles_states, q, qdot).to_mx()
 
 
-data = 'flex' #"horizon_co" #flex #abd_co
-parent_dir_path = os.path.split(os.path.dirname(__file__))[0]
-model = "arm_Belaise_v2_scaled.bioMod"
-biorbd_model = biorbd.Model(parent_dir_path + "/models/" + model)
-n_frames_wanted = 31
-
-# --- Markers --- #
-mat_contents = sio.loadmat(parent_dir_path + f"/data_real/sujet_5/marker_{data}.mat")
-marker_treat = mat_contents['marker_treat'][:-1]
-marker_treat = reduce(n_frames_wanted, marker_treat)[0]
-
-# --- X_init --- #
-mat_contents = sio.loadmat(parent_dir_path + f"/data_real/sujet_5/states_ekf_wo_RT_{data}.mat")
-x_init = mat_contents["x_init"]
+mov = 'flex_co' #"horizon_co" #flex #abd_co
+sujet = '5'
+model_path = '/home/amedeo/Documents/programmation/marker_emg_tracking/models/'
+data_path = '/home/amedeo/Documents/programmation/marker_emg_tracking/mouvement_reel/results'
+model = "arm_Belaise_real_v3_scaled.bioMod"
+biorbd_model = biorbd.Model(model_path + model)
+n_frames_wanted = 50
+tries = '0'
+# --- Data to track for each repetition --- #
+# --- x-init --- #
+mat_contents = sio.loadmat(data_path + f"/sujet_{sujet}/states_init_{mov}.mat")
+x_init = mat_contents[f"x_init_{tries}"]
 x_init = reduce(n_frames_wanted, x_init)[0]
+# x_init = x_init[:, :]
+q_ref = x_init[:biorbd_model.nbQ(), :]
+q_dot_ref = x_init[biorbd_model.nbQ():-biorbd_model.nbMuscles(), :]
+t_final = float(mat_contents[f"t_final_{tries}"])
 
 # --- EMG --- #
-emg_treat = x_init[-biorbd_model.nbMuscles():, :]
+emg_treat = x_init[-biorbd_model.nbMuscles():, :-1]
+
+# --- Markers --- #
+mat_contents = sio.loadmat(data_path + f"/sujet_{sujet}/data_{mov}_treat.mat")
+marker_treat = mat_contents[f"marker_try_{tries}"][:-1, 2:, :]
+marker_treat = reduce(n_frames_wanted, marker_treat)[0]
 
 n_shooting_points = marker_treat.shape[2] - 1
-t = np.linspace(0, 0.24, n_shooting_points + 1) #0.24s
-final_time = t[n_shooting_points]
-q_ref = x_init[6:11, :]
-q_dot_ref = x_init[17:-biorbd_model.nbMuscles(), :]
+t = np.linspace(0, t_final, n_shooting_points + 1)
 
 
 # --- SO Activation --- #
-mat_contents = sio.loadmat(parent_dir_path + f'/static_optimisation/activation_so_{data}.mat')
-a_so = mat_contents['activations_so']
-tau_so = mat_contents['tau']
-
-# with open("Markers_EMG_tracking_f_iso_flex.bob", 'rb' ) as file:
-#     data = pickle.load(file)
-# states_ip = data['data'][0]
-# controls_ip = data['data'][1]
-ocp, sol = OptimalControlProgram.load(f"Markers_EMG_tracking_{data}_ipopt.bo")
-states_ip, controls_ip = Data.get_data(ocp, sol["x"])
+# mat_contents = sio.loadmat(parent_dir_path + f'/static_optimisation/activation_so_{data}.mat')
+# a_so = mat_contents['activations_so']
+# tau_so = mat_contents['tau']
+mat_contents = sio.loadmat(f'./sujet_{sujet}/param_f_iso_{mov}_try_{tries}_ipopt.mat')
+f_iso_ip = mat_contents["f_iso"]
+with open(f"./sujet_{sujet}/Markers_EMG_tracking_f_iso_{mov}_try_{tries}_ipopt.bob", 'rb') as file:
+    data = pickle.load(file)
+states_ip = data['data'][0]
+controls_ip = data['data'][1]
+# ocp, sol = OptimalControlProgram.load(f"Markers_EMG_tracking_{data}_ipopt.bo")
+# states_ip, controls_ip = Data.get_data(ocp, sol["x"])
 q_ip = states_ip['q']
 qdot_ip = states_ip['q_dot']
 u_ip = controls_ip['muscles']
+tau_ip = controls_ip['tau']
 x_ip = vertcat(states_ip["q"], states_ip["q_dot"])
-nlp_ip = ocp.nlp[0]
+# nlp_ip = ocp.nlp[0]
 
 # result = ShowResult(ocp, sol)
 # result.animate()
 # result.graphs()
-ocp, sol = OptimalControlProgram.load(f"Markers_EMG_tracking_{data}_acados.bo")
-states, controls = Data.get_data(ocp, sol["x"])
-q_ac = states['q']
-qdot_ac = states['q_dot']
-x_ac = vertcat(states["q"], states["q_dot"])
-u_ac = controls['muscles']
+mat_contents = sio.loadmat(f'./sujet_{sujet}/param_f_iso_{mov}_try_{tries}_acados.mat')
+f_iso_ac = mat_contents["f_iso"]
+with open(f"./sujet_{sujet}/Markers_EMG_tracking_f_iso_{mov}_try_{tries}_acados.bob", 'rb') as file:
+    data = pickle.load(file)
+states_ac = data['data'][0]
+controls_ac = data['data'][1]
+
+# ocp, sol = OptimalControlProgram.load(f"Markers_EMG_tracking_{data}_acados.bo")
+# states, controls = Data.get_data(ocp, sol["x"])
+q_ac = states_ac['q']
+qdot_ac = states_ac['q_dot']
+x_ac = vertcat(states_ac["q"], states_ac["q_dot"])
+u_ac = controls_ac['muscles']
+tau_ac = controls_ac['tau']
 n_shooting_points = q_ac.shape[1]
-t = np.linspace(0, final_time, n_shooting_points)
-nlp_ac = ocp.nlp[0]
+# t = np.linspace(0, final_time, n_shooting_points)
+# nlp_ac = ocp.nlp[0]
+x1 = range(biorbd_model.nbMuscles())
+width = 0.2
+# x1 = [i + width for i in x1]
+height = []
+for i in range(biorbd_model.nbMuscles()):
+    # height.append(abs(np.log(1+(RMSE_ip[i, 30]))))
+    height.append(f_iso_ac[i, 0])
+plt.bar(x1, height, width, color='red')
+plt.xlabel('1e-tol')
+plt.ylabel('RMSE')
+
+x2 = [i - width for i in x1]
+height = []
+for i in range(biorbd_model.nbMuscles()):
+    # height.append(abs(np.log(1+(RMSE_ac[i, 30]))))
+    height.append(f_iso_ip[i, 0])
+    plt.xticks(range(len(x1)), [biorbd_model.muscleNames()[i].to_string() for i in range(18)], rotation = 45)
+plt.bar(x2, height, width, color='blue')
+plt.xlabel('muscles')
+plt.ylabel('weight')
+plt.title('weight on force iso max')
+plt.legend(["Acados", "Ipopt"], loc=2)
+plt.show()
+
 
 # ---- Tau --- #
 symbolic_states = MX.sym("x", biorbd_model.nbQ()*2, 1)

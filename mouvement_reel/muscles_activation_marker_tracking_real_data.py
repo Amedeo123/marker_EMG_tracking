@@ -30,7 +30,10 @@ from bioptim import (
     InterpolationType,
     DynamicsFunctions,
     Solver,
-    NonLinearProgram
+    NonLinearProgram,
+    ConstraintList,
+    Constraint,
+    Instant
 )
 
 
@@ -50,7 +53,7 @@ def reduce(n_frames_expected, data):
     else:
         c = 1
         while n_shooting % (n_frames_expected - c) != 0:
-            if c > 20:
+            if c > 5:
                 if len(data.shape) == 2:
                     n_shooting = n_shooting - 1
                     c = 0
@@ -63,7 +66,6 @@ def reduce(n_frames_expected, data):
             data = data[:, :n_shooting]
         elif len(data.shape) == 3:
             data = data[:, :, :n_shooting]
-
 
     k = int(n_shooting / n_frames)
     if len(data.shape) == 2:
@@ -83,7 +85,7 @@ def reduce(n_frames_expected, data):
 def modify_isometric_force(biorbd_model, value, fiso_init):
     for k in range(biorbd_model.nbMuscles()):
         biorbd_model.muscle(k).characteristics().setForceIsoMax(
-            value[biorbd_model.nbMuscles()] * value[k] * fiso_init[k]
+            value[k] * fiso_init[k]
         )
 
 
@@ -119,17 +121,17 @@ def prepare_ocp(
 
     # Add objective functions
     objective_functions = ObjectiveList()
+    objective_functions.add(Objective.Lagrange.TRACK_MUSCLES_CONTROL, weight=10, target=excitations_ref)
+    # objective_functions.add(Objective.Lagrange.MINIMIZE_STATE, weight=1000,
+    #                         idx_states=(0, 1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 16))
+    objective_functions.add(Objective.Lagrange.MINIMIZE_STATE, weight=1, idx_states=(6, 7, 8, 9, 10))
 
-    objective_functions.add(Objective.Lagrange.TRACK_MUSCLES_CONTROL, weight=1, target=excitations_ref)
-
-    # objective_functions.add(Objective.Lagrange.MINIMIZE_STATE, weight=0.01)
-    # objective_functions.add(Objective.Lagrange.MINIMIZE_STATE, weight=1, idx_states = [6,7,8,9,10,11])
 
     if use_residual_torque:
-        objective_functions.add(Objective.Lagrange.MINIMIZE_TORQUE, weight=10) # controls_idx=[6, 7, 8, 9, 10],
+        objective_functions.add(Objective.Lagrange.MINIMIZE_TORQUE, weight=1) # controls_idx=[6, 7, 8, 9, 10],
 
     if kin_data_to_track == "markers":
-        objective_functions.add(Objective.Lagrange.TRACK_MARKERS, weight=100,
+        objective_functions.add(Objective.Lagrange.TRACK_MARKERS, weight=1000,
                                 target=marker_ref
                                 )
 
@@ -154,13 +156,17 @@ def prepare_ocp(
 
     # Constraints
     constraints = ()
+    # constraints = ConstraintList()
+    # constraints.add(Constraint.TRACK_TORQUE, instant=Instant.ALL, controls_idx=(6, 7, 8, 9, 10),
+    #                 target=np.zeros((biorbd_model.nbQ()*2, number_shooting_points)))
 
     # Path constraint
     x_bounds = BoundsList()
     x_bounds.add(QAndQDotBounds(biorbd_model))
-    if use_SX:
-        x_bounds[0].min[:, 0] = state_init[:-nb_mus, 0]
-        x_bounds[0].max[:, 0] = state_init[:-nb_mus, 0]
+    # if use_SX:
+    #     x_bounds[0].min[biorbd_model.nbQ():, 0] = -10
+    #     x_bounds[0].max[biorbd_model.nbQ():, 0] = 10
+
 
     # Add muscle to the bounds
     if activation_driven is not True:
@@ -213,7 +219,7 @@ def prepare_ocp(
     # Define the parameter to optimize
     bound_p_iso = Bounds(
         # min_bound=np.repeat(0.01, nb_mus+1), max_bound=np.repeat(7, nb_mus+1), interpolation=InterpolationType.CONSTANT)
-        min_bound=[0.05] * nb_mus + [0.075], max_bound=[4] * nb_mus + [5], interpolation=InterpolationType.CONSTANT)
+        min_bound=[0.5] * nb_mus, max_bound=[3] * nb_mus, interpolation=InterpolationType.CONSTANT)
     bound_shape_factor = Bounds(
         min_bound=np.repeat(-3, nb_mus), max_bound=np.repeat(0, nb_mus), interpolation=InterpolationType.CONSTANT)
 
@@ -226,7 +232,7 @@ def prepare_ocp(
         modify_isometric_force,  # The function that modifies the biorbd model
         p_iso_init,
         bound_p_iso,  # The bounds
-        size=nb_mus+1,  # The number of elements this particular parameter vector has
+        size=nb_mus,  # The number of elements this particular parameter vector has
         fiso_init=fiso,
     )
     # parameters.add(
@@ -256,15 +262,15 @@ def prepare_ocp(
 
 
 if __name__ == "__main__":
-    data ='horizon' #'abd_co' #'horizon_co'  #
-    n_frames_wanted = 90
+    data ='flex_co' #'abd_co' #'horizon_co'  #
+    n_frames_wanted = 50
 
     # Track these data
-    use_residual_torque = False
+    use_residual_torque = True
     activation_driven = True
     acados = True
     sujet = "5"
-    nb_try = 6
+    nb_try = 1
     if acados:
         use_SX = True
         param = True
@@ -277,11 +283,11 @@ if __name__ == "__main__":
         tries = str(i)
         print(f"------------ Try_{tries} -----------------------\n")
 
-        model_path = Path.cwd().parent/'models'
-        data_path = '/home/amedeo/Documents/programmation/data_Article_Colombe/data/données_bruts/'
+        model_path = '/home/amedeo/Documents/programmation/marker_emg_tracking/models/'
+        data_path = '/home/amedeo/Documents/programmation/marker_emg_tracking/mouvement_reel/results'
 
-        model = "arm_Belaise_v3_scaled.bioMod" #"arm_Belaise_real_v2.bioMod"  #
-        biorbd_model = biorbd.Model(model_path/model)
+        model = "arm_Belaise_real_v3_scaled.bioMod" #"arm_Belaise_real_v2.bioMod"  #
+        biorbd_model = biorbd.Model(model_path + model)
 
         # --- Data to track for each repetition --- #
         # --- x-init --- #
@@ -297,17 +303,17 @@ if __name__ == "__main__":
 
         # --- Markers --- #
         mat_contents = sio.loadmat(data_path + f"/sujet_{sujet}/data_{data}_treat.mat")
-        marker_treat = mat_contents[f"marker_try_{tries}"][:-1, :, :]
+        marker_treat = mat_contents[f"marker_try_{tries}"][:-1, 2:, :]
         marker_treat = reduce(n_frames_wanted, marker_treat)[0]
 
         n_shooting_points = marker_treat.shape[2] - 1
         t = np.linspace(0, t_final, n_shooting_points + 1)
         # mat_content = sio.loadmat(f'./results/sujet_5/param_f_iso_{data}_try_0.mat')
         # f_init = np.concatenate((mat_content["f_iso"], mat_content["f_iso_global"]))
-        f_init = [1] * biorbd_model.nbMuscles() + [1]
+        f_init = [1] * biorbd_model.nbMuscles() #+ [1]
         print(f'n_shooting : {n_shooting_points}')
         kin_data_to_track = "markers"
-        biorbd_model = biorbd.Model(model_path/model)  # To allow for non free variable, the model must be reloaded
+        biorbd_model = biorbd.Model(model_path + model)  # To allow for non free variable, the model must be reloaded
         if param is not True:
             fiso = []
             for k in range(biorbd_model.nbMuscles()):
@@ -353,8 +359,8 @@ if __name__ == "__main__":
         else:
             i = 5
             sol = ocp.solve(solver=Solver.ACADOS,  # FULL_CONDENSING_QPOASES, "PARTIAL_CONDENSING_HPIPM"
-                            solver_options={"qp_solver": "PARTIAL_CONDENSING_HPIPM", "integrator_type": "ERK",
-                                            "nlp_solver_max_iter": 150, "sim_method_num_steps": 1,
+                            solver_options={"qp_solver": "PARTIAL_CONDENSING_HPIPM", "integrator_type": "IRK",
+                                            "nlp_solver_max_iter": 50, "sim_method_num_steps": 1,
                                             "nlp_solver_tol_ineq": float("1e%d" % -i),
                                             "nlp_solver_tol_stat": float("1e%d" % -i),
                                             "nlp_solver_tol_comp": float("1e%d" % -i),
@@ -363,11 +369,12 @@ if __name__ == "__main__":
         # print(f"Time to solve : {toc}sec")
         p_f_iso = 0
         p_global_iso = 0
+        print(toc)
         if param:
             states_sol, controls_sol, params = Data.get_data(ocp, sol["x"], get_parameters=True)
-            p_f_iso = params["p_iso"][:-1]
-            p_global_iso = params["p_iso"][ocp.nlp[0].model.nbMuscles()]
-            # print(p_f_iso)
+            p_f_iso = params["p_iso"]
+            # p_global_iso = params["p_iso"][ocp.nlp[0].model.nbMuscles()]
+            print(p_f_iso)
             # print(p_global_iso)
         else:
             states_sol, controls_sol = Data.get_data(ocp, sol["x"])
@@ -409,13 +416,15 @@ if __name__ == "__main__":
         result.graphs()
         result.animate()
 
-        dic = {"f_iso": p_f_iso, "f_iso_global": p_global_iso}
+        dic = {"f_iso": p_f_iso}
 
-        if param:
-            sio.savemat(f"./results/sujet_{sujet}/param_f_iso_{data}_try_{tries}.mat", dic)
-            ocp.save_get_data(sol, f"./results/sujet_{sujet}/Markers_EMG_tracking_f_iso_{data}_try_{tries}.bob")
-
+        if acados:
+            sio.savemat(f"./results/sujet_{sujet}/param_f_iso_{data}_try_{tries}_acados.mat", dic)
+            ocp.save_get_data(sol, f"./results/sujet_{sujet}/Markers_EMG_tracking_f_iso_{data}_try_{tries}_acados.bob")
         else:
+            sio.savemat(f"./results/sujet_{sujet}/param_f_iso_{data}_try_{tries}_ipopt.mat", dic)
+            ocp.save_get_data(sol, f"./results/sujet_{sujet}/Markers_EMG_tracking_f_iso_{data}_try_{tries}_ipopt.bob")
+        if param is not True:
             if acados:
                 ocp.save(sol, f"./results/sujet_{sujet}/Markers_EMG_tracking_{data}_try_{tries}_acados.bo")
             else:

@@ -7,17 +7,19 @@ import xarray
 import os.path
 from scipy.interpolate import UnivariateSpline, interp1d, interp2d
 import csv
-import biorbd as bd
+import biorbd
 import matplotlib.pyplot as plt
 
 # --- General informations --- #
 sujet = "5"
-data = "horizon" #abd_co #flex_co #"horizon_co"
-data_path = f'./sujet_{sujet}/{data}.c3d'
-model = bd.Model(os.path.split(os.path.dirname(__file__))[0]+'/models/arm_Belaise_real_v2.bioMod')
+data = "flex_co" #abd_co #flex_co #"horizon_co"
+data_path = f'/home/amedeo/Documents/programmation/data_Article_Colombe/data/données_bruts/sujet_{sujet}/{data}.c3d'
+model_path = '/home/amedeo/Documents/programmation/marker_emg_tracking/models/'
+model = 'arm_Belaise_real_v3_scaled.bioMod'
+biorbd_model = biorbd.Model(model_path + model)
 
 # --- EMG --- #
-muscles_names = ["pect.IM EMG7","deltpost.EMG3","triceps.EMG5", "deltant.EMG1", "deltmed.EMG2", "ssp.EMG8","isp.EMG9",
+muscles_names = ["pect.IM EMG7","deltpost.EMG3","triceps.EMG5", "deltant.EMG1", "deltmed.EMG2", "ssp.EMG8", "isp.EMG9",
                  "subs.EMG10","biceps.EMG4","uptrap.EMG6", ]
 
 a = Analogs.from_c3d(data_path, usecols=muscles_names)
@@ -73,7 +75,9 @@ mvc_list = ["biceps_1", "biceps_2","deltant_1","deltant_2","deltmed_1","deltmed_
 
 mvc_list_max = np.ndarray((len(muscles_names), 2000))
 for i in range(len(mvc_list)):
-    b = Analogs.from_c3d(f"./sujet_5/mvc/{str(mvc_list[i])}.c3d", usecols=muscles_names)
+    b = Analogs.from_c3d(
+        f"/home/amedeo/Documents/programmation/data_Article_Colombe/data/données_bruts/sujet_{sujet}/mvc/{str(mvc_list[i])}.c3d",
+        usecols=muscles_names)
     mvc_temp = (
     b.meca.band_pass(order=4, cutoff=[10, 425])
     .meca.center()
@@ -111,8 +115,10 @@ emg_norm[[12, 13], :] = emg_norm_tmp[8, :]
 emg_norm[[14, 15, 16, 17], :] = emg_norm_tmp[9, :]
 
 # --- Cut by try --- #
-try_time = [1.22, 3.17, 5.0, 6.76, 8.86, 11.05, 13.55]
-nb_try = len(try_time)-1
+# try_time = [1.22, 3.17, 5.0, 6.76, 8.86, 11.05, 13.55] # horizon
+# try_time = [0.4, 2.10, 3.9, 7.8, 9.8, 12] # flex
+try_time = [0.7, 1.2] # flex
+nb_try = len(try_time) - 1
 try_marker_frames = [int(i * marker_rate) for i in try_time]
 try_emg_frames = [int(i * emg_rate) for i in try_time]
 emg_mov = []
@@ -124,7 +130,9 @@ for i in range(nb_try):
     dict["marker_try_" + str(i)] = marker_treat[:, :, try_marker_frames[i]:try_marker_frames[i+1]]
     dict["emg_try_" + str(i)] = emg_norm[:, try_emg_frames[i]:try_emg_frames[i+1]]
 
-sio.savemat(f"./sujet_{sujet}/data_{data}_treat.mat", dict)
+sio.savemat(
+    f"/home/amedeo/Documents/programmation/marker_emg_tracking/mouvement_reel/results/sujet_{sujet}/data_{data}_treat.mat",
+    dict)
 
 # --- Export .sto --- #
 # nb_frame = range(1, marker_treat.shape[2]+1)
